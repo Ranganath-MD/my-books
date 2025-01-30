@@ -13,7 +13,8 @@ export const Colors = {
 		"950": "#000000",
 	},
 	icons: {
-		gold: "#DA8F0D",
+		primary: "#DA8F0D",
+		secondary: "#A847DB",
 	},
 };
 

@@ -2,18 +2,44 @@ import { Colors } from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 import { Platform } from "react-native";
+import { useColorScheme } from "nativewind";
+import { colors } from "@/constants/Colors";
 
 export default function DashboardLayout() {
+	const { colorScheme } = useColorScheme();
+
+	const isDark = colorScheme === "dark"
+
 	return (
 		<Tabs
 			screenOptions={{
 				tabBarPosition: Platform.OS === "web" ? "left" : "bottom",
+				tabBarStyle: {
+					minWidth: 100,
+					maxWidth: Platform.OS === "web" ? 200 : "100%",
+				},
 				tabBarItemStyle: {
+					backgroundColor: isDark
+						? colors.dark.background
+						: colors.light.background,
 					marginTop: Platform.OS === "web" ? 8 : 0,
 				},
-				tabBarActiveTintColor: Colors.shark[100],
-				tabBarInactiveTintColor: Colors.shark[400],
+				tabBarActiveTintColor: isDark ? Colors.shark[100] : Colors.shark[600],
+				tabBarInactiveTintColor: isDark ? Colors.shark[100] : Colors.shark[600],
 				headerShown: true,
+				headerTitleStyle: {
+					color:
+						colorScheme === "dark"
+							? colors.light.background
+							: colors.dark.background,
+					fontWeight: "bold",
+				},
+				headerStyle: {
+					backgroundColor:
+						colorScheme === "dark"
+							? colors.dark.background
+							: colors.light.background,
+				},
 			}}
 		>
 			<Tabs.Screen

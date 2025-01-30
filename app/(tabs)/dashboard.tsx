@@ -5,39 +5,40 @@ import { Platform, Pressable, ScrollView, Text, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "nativewind";
 
 export default function Dashboard() {
 	const categories = useQuery(api.categories.getCategories);
+	const { colorScheme } = useColorScheme();
 
 	const isWeb = Platform.OS === "web";
 
 	const Main = isWeb ? View : ScrollView;
 
 	return (
-		<Main className="web:grid web:grid-cols-4 web:p-4 gap-4 shadow-slate-500 web:rounded-md">
+		<Main className="web:p-4 grid grid-cols-1 md:grid-cols-2 max-w-4xl w-full">
 			{categories?.map((item) => {
 				return (
-					<Pressable key={item._id} className="mt-4 web:mt-0">
-						<View className="bg-[#212529] p-4 flex flex-row items-center justify-between web:justify-center">
-							<View className="flex flex-row web:flex-col items-center gap-4 web:gap-2">
+					<Pressable key={item._id}>
+						<View className="web:border border-b gap-0 dark:border-zinc-800 border-zinc-200  p-4 flex flex-row web:items-start items-center justify-between web:justify-start">
+							<View className="flex flex-row web:flex-col web:items-start items-center gap-4 web:gap-2">
 								<MaterialCommunityIcons
 									name={item.icon as any}
 									size={32}
-									color={Colors.icons.gold}
+									color={
+										colorScheme === "dark"
+											? Colors.icons.primary
+											: Colors.icons.secondary
+									}
 								/>
-								<ThemedText
-									type="default"
-									style={{ fontSize: isWeb ? 14 : 20 }}
-								>
-									{item?.title}
-								</ThemedText>
+								<ThemedText type="defaultSemiBold">{item?.title}</ThemedText>
 							</View>
 							{isWeb ? null : (
 								<SimpleLineIcons
-									className="float-right"
+									className="float-right "
 									name="arrow-right"
-									size={16}
-									color={Colors.icons.gold}
+									size={14}
+									color={Colors.shark[500]}
 								/>
 							)}
 						</View>
