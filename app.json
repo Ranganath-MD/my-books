@@ -26,7 +26,9 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/Geist-Regular.otf"]
+          "fonts": [
+            "./assets/fonts/Geist-Regular.otf"
+          ]
         }
       ],
       "expo-router",
@@ -42,6 +44,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "897740ce-ac8f-40eb-bc2f-2189e54cbc60"
+      }
+    },
+    "owner": "rangu"
   }
 }
