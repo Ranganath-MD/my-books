@@ -1,15 +1,20 @@
-import { View, Text, ScrollView, SafeAreaView } from 'react-native'
-import React from 'react'
+import { Text, View } from "react-native";
+import React from "react";
+import { Link } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemedText } from "@/components/ThemedText";
 
 const HomeScreen = () => {
-  return (
+	return (
 		<SafeAreaView>
 			<View className="h-full p-6">
-				<Text className="text-white text-2xl">Hello, World!</Text>
-				<Text className="text-white text-xl">Welcome to your new app!</Text>
+				<ThemedText>This screen doesn't exist.</ThemedText>
+				<Link href="/dashboard" replace className="text-blue-100">
+					Go to Dashboard
+				</Link>
 			</View>
 		</SafeAreaView>
 	);
-}
+};
 
-export default HomeScreen
+export default HomeScreen;
