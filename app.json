@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/vault.png",
         "backgroundColor": "#000000"
-      }
+      },
+      "package": "com.rangu.mydocs"
     },
     "web": {
       "bundler": "metro",
