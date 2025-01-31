@@ -1,14 +1,67 @@
 import { Colors } from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Tabs } from "expo-router";
-import { Platform } from "react-native";
+import { Redirect, Tabs, useRouter } from "expo-router";
+import { Platform, Pressable, TouchableOpacity, View } from "react-native";
 import { useColorScheme } from "nativewind";
 import { colors } from "@/constants/Colors";
+import { SignOutButton } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-expo";
+import { ThemedText } from "@/components/ThemedText";
+import { useClerk } from "@clerk/clerk-react";
+
+const Logout = () => {
+	const { colorScheme } = useColorScheme();
+	const { signOut } = useClerk();
+	const { replace } = useRouter();
+
+	const Icon = () => (
+		<Ionicons
+			className="mr-5"
+			name={"log-out-outline"}
+			size={24}
+			color={
+				colorScheme === "dark"
+					? colors.light.background
+					: colors.dark.background
+			}
+		/>
+	);
+
+	if (Platform.OS === "web") {
+		return <SignOutButton redirectUrl="/" children={<Icon />} />;
+	}
+
+	const handleLogout = async () => {
+		try {
+			await signOut();
+			replace("/");
+		} catch {}
+	};
+
+	return (
+		<TouchableOpacity onPress={handleLogout}>
+			<Icon />
+		</TouchableOpacity>
+	);
+};
 
 export default function DashboardLayout() {
 	const { colorScheme } = useColorScheme();
+	const { isLoaded: isAuthLoaded, isSignedIn } = useAuth();
 
-	const isDark = colorScheme === "dark"
+	if (!isAuthLoaded) {
+		return (
+			<View>
+				<ThemedText>Auth Loading...</ThemedText>
+			</View>
+		);
+	}
+
+	if (!isSignedIn) {
+		return <Redirect href="/" />;
+	}
+
+	const isDark = colorScheme === "dark";
 
 	return (
 		<Tabs
@@ -40,6 +93,7 @@ export default function DashboardLayout() {
 							? colors.dark.background
 							: colors.light.background,
 				},
+				headerRight: () => <Logout />,
 			}}
 		>
 			<Tabs.Screen
