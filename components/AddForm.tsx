@@ -55,7 +55,6 @@ export const AddForm = ({
 				}}
 				className="p-4 mt-4 rounded-lg"
 			>
-				"
 				<Text className="font-geist-bold text-center">
 					{isSubmitting ? "Adding..." : "Add a book"}
 				</Text>
