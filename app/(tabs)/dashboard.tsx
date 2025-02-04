@@ -1,11 +1,11 @@
 import { ThemedText } from "@/components/ThemedText";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
-import { Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { Platform, Pressable, ScrollView, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
-import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "nativewind";
+import { Colors } from "@/constants/Colors";
 
 export default function Dashboard() {
 	const categories = useQuery(api.categories.getCategories);
@@ -16,7 +16,7 @@ export default function Dashboard() {
 	const Main = isWeb ? View : ScrollView;
 
 	return (
-		<Main className="web:p-4 grid grid-cols-1 md:grid-cols-2 max-w-4xl w-full">
+		<Main className="web:p-4 grid grid-cols-1 md:grid-cols-2 max-w-4xl w-full overflow-auto">
 			{categories?.map((item) => {
 				return (
 					<Pressable key={item._id}>
